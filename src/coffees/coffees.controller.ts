@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query } from '@nestjs/common';
+import { CoffeesService } from './providers/coffees.service';
 
 interface ICoffee {
   brand: string;
@@ -8,6 +9,8 @@ interface ICoffee {
 
 @Controller('coffees')
 export class CoffeesController {
+  constructor(private readonly coffeesService: CoffeesService) {}
+
   @Get()
   getAllCoffees(@Query() pagination): string {
     const { limit, offset } = pagination;
