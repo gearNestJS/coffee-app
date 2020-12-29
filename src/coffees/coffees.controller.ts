@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query } from '@nestjs/common';
 
 interface ICoffee {
   brand: string;
@@ -9,8 +9,9 @@ interface ICoffee {
 @Controller('coffees')
 export class CoffeesController {
   @Get()
-  getAllCoffees(): string {
-    return 'get all coffee';
+  getAllCoffees(@Query() pagination): string {
+    const { limit, offset } = pagination;
+    return `get all coffee with limit #${limit} and offset #${offset}`;
   }
 
   @Get('favorites')
