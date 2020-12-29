@@ -1,15 +1,20 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+
+interface ICoffee {
+  brand: string;
+  year: number;
+  price: number;
+}
 
 @Controller('coffees')
 export class CoffeesController {
-
   @Get()
   getAllCoffees(): string {
     return 'get all coffee';
   }
 
   @Get('favorites')
-  getFlavoursCoffee() {
+  getFlavoursCoffee(): string {
     return 'flavours coffees';
   }
 
@@ -20,7 +25,17 @@ export class CoffeesController {
 
   @Post()
   @HttpCode(HttpStatus.GONE)
-  createCoffee(@Body() body) {
+  createCoffee(@Body() body: ICoffee): ICoffee {
     return body;
+  }
+
+  @Patch(':id')
+  patchCoffee(@Param('id') id: string, @Body() body: ICoffee): string {
+    return `patch by ${body.brand} coffee with id #${id}`;
+  }
+
+  @Delete(':id')
+  removeCoffee(@Param('id') id: string): string {
+    return `remove coffee with id #${id}`;
   }
 }
