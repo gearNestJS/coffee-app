@@ -1,5 +1,5 @@
 export class UCoffee {
-  brand: string;
-  name: string;
-  flavors: string[];
+  brand?: string;
+  name?: string;
+  flavors?: string[];
 }
