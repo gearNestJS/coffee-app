@@ -17,8 +17,8 @@ export class CoffeesService {
     return [...this.coffees];
   }
 
-  getOneCoffee(id: string): Coffee {
-    const coffee = this.coffees.find((coffee: Coffee) => coffee.id === Number(id));
+  getOneCoffee(id: number): Coffee {
+    const coffee = this.coffees.find((coffee: Coffee) => coffee.id === id);
     if (!coffee) {
       throw new HttpException(`Coffee with id #${id} not found`, HttpStatus.NOT_FOUND);
     }
@@ -31,9 +31,9 @@ export class CoffeesService {
     return [...this.coffees];
   }
 
-  updateCoffee(id: string, coffee: UCoffee): Coffee {
+  updateCoffee(id: number, coffee: UCoffee): Coffee {
     const updateCoffee = this.coffees.find(
-      (coffee: Coffee) => coffee.id === Number(id),
+      (coffee: Coffee) => coffee.id === id,
     );
     if (updateCoffee) {
       updateCoffee.brand = coffee.brand;
@@ -43,9 +43,9 @@ export class CoffeesService {
     return updateCoffee;
   }
 
-  removeCoffee(id: string): Coffee[] {
+  removeCoffee(id: number): Coffee[] {
     this.coffees = this.coffees.filter(
-      (coffee: Coffee) => coffee.id !== Number(id),
+      (coffee: Coffee) => coffee.id !== id,
     );
     return [...this.coffees];
   }

@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestj
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
-import { UCoffee } from './entities/ucoffee.entity';
 import { CoffeesService } from './providers/coffees.service';
 
 @Controller('coffees')
@@ -17,7 +16,7 @@ export class CoffeesController {
   }
 
   @Get(':id')
-  getOneCoffee(@Param('id') id: string): Coffee {
+  getOneCoffee(@Param('id') id: number): Coffee {
     return this.coffeesService.getOneCoffee(id);
   }
 
@@ -28,14 +27,14 @@ export class CoffeesController {
 
   @Patch(':id')
   patchCoffee(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateCoffeeDto: UpdateCoffeeDto,
   ): Coffee {
     return this.coffeesService.updateCoffee(id, updateCoffeeDto);
   }
 
   @Delete(':id')
-  removeCoffee(@Param('id') id: string): Coffee[] {
+  removeCoffee(@Param('id') id: number): Coffee[] {
     return this.coffeesService.removeCoffee(id);
   }
 }
