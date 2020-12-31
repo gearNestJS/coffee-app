@@ -9,6 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
+import { PaginationQueryDto } from './dto/pagination-query.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 import { CoffeesService } from './providers/coffees.service';
@@ -18,10 +19,8 @@ export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
 
   @Get()
-  getAllCoffees(@Query() pagination) {
-    const { limit, offset } = pagination;
-    console.log(`get all coffee with limit #${limit} and offset #${offset}`);
-    return this.coffeesService.getAllCoffees();
+  getAllCoffees(@Query() pagination: PaginationQueryDto) {
+    return this.coffeesService.getAllCoffees(pagination);
   }
 
   @Get(':id')

@@ -7,6 +7,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCoffeeDto } from '../dto/create-coffee.dto';
+import { PaginationQueryDto } from '../dto/pagination-query.dto';
 import { UpdateCoffeeDto } from '../dto/update-coffee.dto';
 import { Coffee } from '../entities/coffee.entity';
 import { Flavor } from '../entities/flavor.entity';
@@ -20,9 +21,12 @@ export class CoffeesService {
     private readonly flavorRepository: Repository<Flavor>,
   ) {}
 
-  getAllCoffees() {
+  getAllCoffees(pagination: PaginationQueryDto) {
+    const { limit, offset } = pagination;
     return this.coffeeRepository.find({
       relations: ['flavors'],
+      skip: offset,
+      take: limit,
     });
   }
 
