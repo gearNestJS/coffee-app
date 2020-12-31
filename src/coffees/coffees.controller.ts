@@ -1,6 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
+import { Coffee } from './entities/coffee.entity';
 import { CoffeesService } from './providers/coffees.service';
 
 @Controller('coffees')
@@ -15,12 +25,12 @@ export class CoffeesController {
   }
 
   @Get(':id')
-  getOneCoffee(@Param('id') id: number): Promise<CreateCoffeeDto> {
+  getOneCoffee(@Param('id') id: number): Promise<Coffee> {
     return this.coffeesService.getOneCoffee(id);
   }
 
   @Post()
-  createCoffee(@Body() createCoffeeDto: CreateCoffeeDto): Promise<CreateCoffeeDto> {
+  createCoffee(@Body() createCoffeeDto: CreateCoffeeDto): Promise<Coffee> {
     return this.coffeesService.createCoffee(createCoffeeDto);
   }
 
@@ -28,12 +38,12 @@ export class CoffeesController {
   patchCoffee(
     @Param('id') id: number,
     @Body() updateCoffeeDto: UpdateCoffeeDto,
-  ): Promise<UpdateCoffeeDto> {
+  ): Promise<Coffee> {
     return this.coffeesService.updateCoffee(id, updateCoffeeDto);
   }
 
   @Delete(':id')
-  removeCoffee(@Param('id') id: number): Promise<CreateCoffeeDto> {
+  removeCoffee(@Param('id') id: number): Promise<Coffee> {
     return this.coffeesService.removeCoffee(id);
   }
 }
